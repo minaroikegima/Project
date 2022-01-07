@@ -62,7 +62,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
                                 <a class="dropdown-item page-scroll" href="project.html">Project Details</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item page-scroll" href="terms.html">Terms Conditions</a>
+                                <a class="dropdown-item page-scroll" href="terms.html">Terms & Conditions</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item page-scroll" href="privacy.html">Privacy Policy</a>
                             </div>
@@ -105,7 +105,7 @@
                 <div class="col-lg-12">
                     
                     <!-- Contact Form -->
-                    <form id="contactForm">
+                    <form id="contactForm" method="post" action="" onsubmit="sendEnquiryform();">
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="cname" required>
                             <label class="label-control" for="cname">Name</label>
@@ -118,18 +118,45 @@
                             <textarea class="form-control-textarea" id="cmessage" required></textarea>
                             <label class="label-control" for="cmessage">Project details</label>
                         </div>
+                        
                         <div class="form-group">
-                            <button type="submit" class="form-control-submit-button">Submit</button>
+                            
+                            
+                            <input id="submit" name="submit" type="submit" value="Submit">
                         </div>
                     </form>
+                    
+                        
+                    
                     <!-- end of contact form -->
 
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of form-1 -->  
+    
+    <h1>    </h1>
     <!-- end of contact -->
-
-
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script type="text/javascript">
+        function sendEnquiryform(){
+        var name=$('#cname').val();
+        var email=$('#cemail').val();
+        var message=$('#cmessage').val();
+        $.post("send_mail.php",'name='+name+'&email='+email,'&message='+message,function(result,status,xhr) {
+        if( status.toLowerCase()=="error".toLowerCase() )
+        { alert("An Error Occurred.."); }
+        else { 
+         //alert(result);
+        $('#sucessMessage').html(result);
+         }
+        })
+        .fail(function(){ alert("something went wrong. Please try again") });
+        }
+        </script>
 </body>
 </html>
